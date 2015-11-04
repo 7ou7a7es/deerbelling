@@ -1,0 +1,12 @@
+<div class="dashbox">
+    <h3>Tasks Report</h3>
+    <%
+      filename = Rails.root.join('tasks-report', 'tasks_report_' + @project.key.gsub(':', '-') + '.xlsx')
+      if File.exists?(filename)
+    %>
+      <h4>Get tasks in Excel report</h4>
+      <a href="<%= ApplicationController.root_context -%>/tasks_report/getTasks?resource=<%= @snapshot.project_id %>">Download</a>
+    <% else %>
+      <h4>Report is not available. At least one analysis is required after installing the plugin</h4>
+    <% end %>
+</div>
