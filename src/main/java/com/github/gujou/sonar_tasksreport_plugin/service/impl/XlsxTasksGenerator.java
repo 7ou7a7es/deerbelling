@@ -93,7 +93,7 @@ public class XlsxTasksGenerator implements FileGenerator {
 			DataValidationHelper validationHelper = new HSSFDataValidationHelper(sheet);
 			DataValidationConstraint constraint = validationHelper.createExplicitListConstraint(
 					new String[] { "OPENED", "CONFIRMED", "REOPENED", "RESOLVED", "CLOSE" });
-			CellRangeAddressList addressList = new CellRangeAddressList(1, rootIssue.getIssues().size(),
+			CellRangeAddressList addressList = new CellRangeAddressList(1, rootIssue.getIssues().size() + 1,
 					STATUS_COLUMN_INDEX, STATUS_COLUMN_INDEX);
 			DataValidation dataValidation = validationHelper.createValidation(constraint, addressList);
 			dataValidation.setSuppressDropDownArrow(false);
