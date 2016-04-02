@@ -31,7 +31,7 @@ import org.sonar.api.config.Settings;
 import org.sonar.api.resources.Project;
 
 import com.github.gujou.sonar_tasksreport_plugin.service.FileGenerator;
-import com.github.gujou.sonar_tasksreport_plugin.service.impl.XlsxTasksGenerator;
+import com.github.gujou.sonar_tasksreport_plugin.service.impl.XlsTasksGenerator;
 import com.github.gujou.sonar_tasksreport_plugin.tools.HttpFileUploader;
 
 public class TasksReportPostJob implements PostJob, CheckProject {
@@ -56,11 +56,11 @@ public class TasksReportPostJob implements PostJob, CheckProject {
 		sonarPassword = sonarSettings.getString(TasksReportKeys.TASKS_REPORT_SONAR_PWD_KEY);
 
 		switch (sonarSettings.getString(TasksReportKeys.TASKS_REPORT_TYPE_KEY)) {
-		case TasksReportKeys.TASKS_REPORT_TYPE_XLSX_EXTENSION:
-			tasksFileGenerator = new XlsxTasksGenerator();
+		case TasksReportKeys.TASKS_REPORT_TYPE_XLS_EXTENSION:
+			tasksFileGenerator = new XlsTasksGenerator();
 			break;
 		default:
-			tasksFileGenerator = new XlsxTasksGenerator();
+			tasksFileGenerator = new XlsTasksGenerator();
 			break;
 		}
 	}

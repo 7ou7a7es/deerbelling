@@ -31,7 +31,7 @@ import org.sonar.api.SonarPlugin;
 @Properties({
 		@Property(key = TasksReportKeys.TASKS_REPORT_SKIP_KEY, name = "Skip", description = "Skip tasks report generation.", defaultValue = TasksReportKeys.TASKS_REPORT_SKIP_DEFAULT, global = true, project = true, module = false, type = PropertyType.BOOLEAN),
 		@Property(key = TasksReportKeys.TASKS_REPORT_TYPE_KEY, name = "Type", description = "Tasks report type.", defaultValue = TasksReportKeys.TASKS_REPORT_TYPE_DEFAULT, global = true, project = true, module = false, type = PropertyType.SINGLE_SELECT_LIST, options = {
-				TasksReportKeys.TASKS_REPORT_TYPE_XLSX_EXTENSION }),
+				TasksReportKeys.TASKS_REPORT_TYPE_XLS_EXTENSION }),
 
 		@Property(key = TasksReportKeys.TASKS_REPORT_SONAR_LOGIN_KEY, name = "Login", description = "WS API login.", global = true, project = true, module = false),
 		@Property(key = TasksReportKeys.TASKS_REPORT_SONAR_PWD_KEY, name = "Password", description = "WS API password.", global = true, project = true, module = false, type = PropertyType.PASSWORD) })

@@ -44,7 +44,7 @@ import com.github.gujou.sonar_tasksreport_plugin.model.issue.Issues;
 import com.github.gujou.sonar_tasksreport_plugin.plugin.TasksReportKeys;
 import com.github.gujou.sonar_tasksreport_plugin.service.FileGenerator;
 
-public class XlsxTasksGenerator implements FileGenerator {
+public class XlsTasksGenerator implements FileGenerator {
 
 	private static final int STATUS_COLUMN_INDEX = 0;
 	private static final int COMPONENT_COLUMN_INDEX = 1;
@@ -67,7 +67,7 @@ public class XlsxTasksGenerator implements FileGenerator {
 
 		String filePath = sonarFileSystem.workDir().getAbsolutePath() + File.separator + "tasks_report_"
 				+ sonarProject.getEffectiveKey().replace(':', '-') + "."
-				+ TasksReportKeys.TASKS_REPORT_TYPE_XLSX_EXTENSION;
+				+ TasksReportKeys.TASKS_REPORT_TYPE_XLS_EXTENSION;
 
 		File resultFile = new File(filePath);
 

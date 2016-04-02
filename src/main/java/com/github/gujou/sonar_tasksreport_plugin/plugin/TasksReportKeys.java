@@ -25,8 +25,8 @@ public interface TasksReportKeys {
 	static final String TASKS_REPORT_SKIP_DEFAULT = "false";
 
 	static final String TASKS_REPORT_TYPE_KEY = "tasks.report.type";
-	static final String TASKS_REPORT_TYPE_XLSX_EXTENSION = "xlsx";
-	static final String TASKS_REPORT_TYPE_DEFAULT = TASKS_REPORT_TYPE_XLSX_EXTENSION;
+	static final String TASKS_REPORT_TYPE_XLS_EXTENSION = "xls";
+	static final String TASKS_REPORT_TYPE_DEFAULT = TASKS_REPORT_TYPE_XLS_EXTENSION;
 
 	public static final String TASKS_REPORT_SONAR_URL_KEY = "sonar.host.url";
 	public static final String TASKS_REPORT_SONAR_URL_DEFAULT = "http://localhost:9000";
