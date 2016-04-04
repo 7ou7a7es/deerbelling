@@ -17,7 +17,7 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package com.github.gujou.sonar_tasksreport_plugin.service.impl;
+package com.github.gujou.sonar_tasksreport_plugin.service;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -42,22 +42,21 @@ import com.github.gujou.sonar_tasksreport_plugin.gateway.IssueGateway;
 import com.github.gujou.sonar_tasksreport_plugin.model.issue.Issue;
 import com.github.gujou.sonar_tasksreport_plugin.model.issue.Issues;
 import com.github.gujou.sonar_tasksreport_plugin.plugin.TasksReportKeys;
-import com.github.gujou.sonar_tasksreport_plugin.service.FileGenerator;
 
-public class XlsTasksGenerator implements FileGenerator {
+public class XlsTasksGenerator {
 
 	private static final int STATUS_COLUMN_INDEX = 0;
-	private static final int COMPONENT_COLUMN_INDEX = 1;
-	private static final int LINE_COLUMN_INDEX = 2;
-	private static final int MESSAGE_COLUMN_INDEX = 3;
-	private static final int AUTHOR_COLUMN_INDEX = 4;
-	private static final int ASSIGNED_COLUMN_INDEX = 5;
-	private static final int CREATION_DATE_COLUMN_INDEX = 6;
-	private static final int UPDATE_DATE_COLUMN_INDEX = 7;
-	private static final int COMPONENT_PATH_COLUMN_INDEX = 8;
+	private static final int SEVERITY_COLUMN_INDEX = 1;
+	private static final int COMPONENT_COLUMN_INDEX = 2;
+	private static final int LINE_COLUMN_INDEX = 3;
+	private static final int MESSAGE_COLUMN_INDEX = 4;
+	private static final int AUTHOR_COLUMN_INDEX = 5;
+	private static final int ASSIGNED_COLUMN_INDEX = 6;
+	private static final int CREATION_DATE_COLUMN_INDEX = 7;
+	private static final int UPDATE_DATE_COLUMN_INDEX = 8;
+	private static final int COMPONENT_PATH_COLUMN_INDEX = 9;
 
-	@Override
-	public File generateFile(Project sonarProject, FileSystem sonarFileSystem, String sonarUrl, String sonarLogin,
+	public static File generateFile(Project sonarProject, FileSystem sonarFileSystem, String sonarUrl, String sonarLogin,
 			String sonarPassword) {
 
 		short formatIndex;
@@ -103,6 +102,7 @@ public class XlsTasksGenerator implements FileGenerator {
 
 			Row row = sheet.createRow(rownum++);
 			row.createCell(STATUS_COLUMN_INDEX).setCellValue("Status");
+			row.createCell(SEVERITY_COLUMN_INDEX).setCellValue("Severity");
 			row.createCell(COMPONENT_COLUMN_INDEX).setCellValue("Component");
 			row.createCell(LINE_COLUMN_INDEX).setCellValue("Line");
 			row.createCell(MESSAGE_COLUMN_INDEX).setCellValue("Message");
@@ -127,6 +127,7 @@ public class XlsTasksGenerator implements FileGenerator {
 
 				// Set values.
 				row.createCell(STATUS_COLUMN_INDEX).setCellValue(issue.getStatus());
+				row.createCell(SEVERITY_COLUMN_INDEX).setCellValue(issue.getSeverity());
 				row.createCell(COMPONENT_COLUMN_INDEX).setCellValue(component);
 				row.createCell(LINE_COLUMN_INDEX).setCellValue(issue.getLine());
 				row.createCell(MESSAGE_COLUMN_INDEX).setCellValue(issue.getMessage());
@@ -142,6 +143,7 @@ public class XlsTasksGenerator implements FileGenerator {
 			}
 
 			// Auto-size sheet columns.
+			sheet.autoSizeColumn(STATUS_COLUMN_INDEX);
 			sheet.autoSizeColumn(STATUS_COLUMN_INDEX);
 			sheet.autoSizeColumn(COMPONENT_COLUMN_INDEX);
 			sheet.autoSizeColumn(LINE_COLUMN_INDEX);

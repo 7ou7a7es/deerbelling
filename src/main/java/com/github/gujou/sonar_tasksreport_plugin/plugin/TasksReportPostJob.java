@@ -30,8 +30,8 @@ import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.config.Settings;
 import org.sonar.api.resources.Project;
 
-import com.github.gujou.sonar_tasksreport_plugin.service.FileGenerator;
-import com.github.gujou.sonar_tasksreport_plugin.service.impl.XlsTasksGenerator;
+import com.github.gujou.sonar_tasksreport_plugin.service.CsvTasksGenerator;
+import com.github.gujou.sonar_tasksreport_plugin.service.XlsTasksGenerator;
 import com.github.gujou.sonar_tasksreport_plugin.tools.HttpFileUploader;
 
 public class TasksReportPostJob implements PostJob, CheckProject {
@@ -39,30 +39,22 @@ public class TasksReportPostJob implements PostJob, CheckProject {
 	private static final Logger logger = LoggerFactory.getLogger(TasksReportPostJob.class);
 
 	private final FileSystem sonarFileSystem;
-	private final FileGenerator tasksFileGenerator;
 	private final boolean tasksreportSkip;
 	private final String sonarUrl;
 	private final String sonarLogin;
 	private final String sonarPassword;
+	private final String csvSepartor;
 
 	public TasksReportPostJob(Settings sonarSettings, FileSystem sonarFs) {
 		sonarFileSystem = sonarFs;
-
 		tasksreportSkip = sonarSettings.getBoolean(TasksReportKeys.TASKS_REPORT_SKIP_KEY);
 		sonarUrl = sonarSettings.hasKey(TasksReportKeys.TASKS_REPORT_SONAR_URL_KEY)
 				? sonarSettings.getString(TasksReportKeys.TASKS_REPORT_SONAR_URL_KEY)
 				: TasksReportKeys.TASKS_REPORT_SONAR_URL_DEFAULT;
 		sonarLogin = sonarSettings.getString(TasksReportKeys.TASKS_REPORT_SONAR_LOGIN_KEY);
 		sonarPassword = sonarSettings.getString(TasksReportKeys.TASKS_REPORT_SONAR_PWD_KEY);
+		csvSepartor = sonarSettings.getString(TasksReportKeys.TASKS_REPORT_TYPE_CSV_SEPARATOR_KEY);
 
-		switch (sonarSettings.getString(TasksReportKeys.TASKS_REPORT_TYPE_KEY)) {
-		case TasksReportKeys.TASKS_REPORT_TYPE_XLS_EXTENSION:
-			tasksFileGenerator = new XlsTasksGenerator();
-			break;
-		default:
-			tasksFileGenerator = new XlsTasksGenerator();
-			break;
-		}
 	}
 
 	@Override
@@ -74,15 +66,26 @@ public class TasksReportPostJob implements PostJob, CheckProject {
 	public void executeOn(Project sonarProject, SensorContext ctx) {
 		logger.info("Launching tasks report...");
 
-		File generateFile = tasksFileGenerator.generateFile(sonarProject, sonarFileSystem, sonarUrl, sonarLogin,
+		File generateFile = XlsTasksGenerator.generateFile(sonarProject, sonarFileSystem, sonarUrl, sonarLogin,
 				sonarPassword);
 
 		if (generateFile != null) {
 			HttpFileUploader.uploadFile(generateFile, sonarLogin, sonarPassword, "http://localhost:9000");
 		} else {
-			
+
 			// TODO change sysout => log4j.
-			System.out.println("Error : file not generated.");
+			System.out.println("Error : xls file not generated.");
+		}
+
+		generateFile = CsvTasksGenerator.generateFile(sonarProject, sonarFileSystem, sonarUrl, sonarLogin,
+				sonarPassword, csvSepartor);
+
+		if (generateFile != null) {
+			HttpFileUploader.uploadFile(generateFile, sonarLogin, sonarPassword, "http://localhost:9000");
+		} else {
+
+			// TODO change sysout => log4j.
+			System.out.println("Error : csv file not generated.");
 		}
 
 	}

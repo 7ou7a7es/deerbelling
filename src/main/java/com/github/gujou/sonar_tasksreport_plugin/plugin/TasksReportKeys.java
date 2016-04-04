@@ -24,9 +24,11 @@ public interface TasksReportKeys {
 	static final String TASKS_REPORT_SKIP_KEY = "tasks.report.skip";
 	static final String TASKS_REPORT_SKIP_DEFAULT = "false";
 
-	static final String TASKS_REPORT_TYPE_KEY = "tasks.report.type";
 	static final String TASKS_REPORT_TYPE_XLS_EXTENSION = "xls";
-	static final String TASKS_REPORT_TYPE_DEFAULT = TASKS_REPORT_TYPE_XLS_EXTENSION;
+	static final String TASKS_REPORT_TYPE_CSV_EXTENSION = "csv";
+	
+	public static final String TASKS_REPORT_TYPE_CSV_SEPARATOR_KEY = "tasks.report.csv.separator";
+	public static final String TASKS_REPORT_TYPE_CSV_SEPARATOR_DEFAULT = ",";
 
 	public static final String TASKS_REPORT_SONAR_URL_KEY = "sonar.host.url";
 	public static final String TASKS_REPORT_SONAR_URL_DEFAULT = "http://localhost:9000";

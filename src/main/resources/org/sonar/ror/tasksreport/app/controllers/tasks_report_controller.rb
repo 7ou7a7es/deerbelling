@@ -3,9 +3,14 @@ require 'fileutils'
 
 class TasksReportController < ApplicationController
 
-  def getTasks
+  def getTasksXls
     project = Project.by_key(params[:resource])
-    send_file Rails.root.join('tasks-report', 'tasks_report_' + project.key.gsub(':', '-') + '.xlsx'),  :type => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', :filename => project.name + '_tasks_list.xlsx',:disposition => 'attachment'
+    send_file Rails.root.join('tasks-report', 'tasks_report_' + project.key.gsub(':', '-') + '.xls'),  :type => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', :filename => project.name + '_tasks_list.xls',:disposition => 'attachment'
+  end
+  
+  def getTasksCsv
+    project = Project.by_key(params[:resource])
+    send_file Rails.root.join('tasks-report', 'tasks_report_' + project.key.gsub(':', '-') + '.csv'),  :type => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', :filename => project.name + '_tasks_list.csv',:disposition => 'attachment'
   end
 
   def postReport
