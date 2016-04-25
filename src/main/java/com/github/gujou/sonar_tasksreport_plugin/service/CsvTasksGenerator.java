@@ -77,7 +77,10 @@ public class CsvTasksGenerator {
 
 			for (Issue issue : rootIssue.getIssues()) {
 
-				int componentIndex = issue.getComponent().lastIndexOf('/');
+				int componentIndex = 0;
+				if (issue.getComponent() != null){
+					componentIndex = issue.getComponent().lastIndexOf('/');
+				}
 				String component;
 				String path;
 				if (componentIndex > 0) {

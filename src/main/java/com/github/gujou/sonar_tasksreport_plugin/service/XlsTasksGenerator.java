@@ -56,8 +56,8 @@ public class XlsTasksGenerator {
 	private static final int UPDATE_DATE_COLUMN_INDEX = 8;
 	private static final int COMPONENT_PATH_COLUMN_INDEX = 9;
 
-	public static File generateFile(Project sonarProject, FileSystem sonarFileSystem, String sonarUrl, String sonarLogin,
-			String sonarPassword) {
+	public static File generateFile(Project sonarProject, FileSystem sonarFileSystem, String sonarUrl,
+			String sonarLogin, String sonarPassword) {
 
 		short formatIndex;
 		HSSFDataFormat dataFormat = null;
@@ -113,33 +113,38 @@ public class XlsTasksGenerator {
 			row.createCell(COMPONENT_PATH_COLUMN_INDEX).setCellValue("Path");
 
 			for (Issue issue : rootIssue.getIssues()) {
-				row = sheet.createRow(rownum++);
-				int componentIndex = issue.getComponent().lastIndexOf('/');
-				String component;
-				String path;
-				if (componentIndex > 0) {
-					component = issue.getComponent().substring(componentIndex + 1);
-					path = issue.getComponent().substring(0, componentIndex);
-				} else {
-					component = issue.getComponent();
-					path = "";
+				if (issue != null) {
+					row = sheet.createRow(rownum++);
+					int componentIndex = 0;
+					if (issue.getComponent() != null){
+						componentIndex = issue.getComponent().lastIndexOf('/');
+					}
+					String component;
+					String path;
+					if (componentIndex > 0) {
+						component = issue.getComponent().substring(componentIndex + 1);
+						path = issue.getComponent().substring(0, componentIndex);
+					} else {
+						component = issue.getComponent();
+						path = "";
+					}
+
+					// Set values.
+					row.createCell(STATUS_COLUMN_INDEX).setCellValue(issue.getStatus());
+					row.createCell(SEVERITY_COLUMN_INDEX).setCellValue(issue.getSeverity());
+					row.createCell(COMPONENT_COLUMN_INDEX).setCellValue(component);
+					row.createCell(LINE_COLUMN_INDEX).setCellValue(issue.getLine());
+					row.createCell(MESSAGE_COLUMN_INDEX).setCellValue(issue.getMessage());
+					row.createCell(AUTHOR_COLUMN_INDEX).setCellValue(issue.getAuthor());
+					row.createCell(ASSIGNED_COLUMN_INDEX).setCellValue(issue.getAssignee());
+					row.createCell(CREATION_DATE_COLUMN_INDEX).setCellValue(issue.getCreationDate());
+					row.createCell(UPDATE_DATE_COLUMN_INDEX).setCellValue(issue.getUpdateDate());
+					row.createCell(COMPONENT_PATH_COLUMN_INDEX).setCellValue(path);
+
+					// Set date style to date column.
+					row.getCell(CREATION_DATE_COLUMN_INDEX).setCellStyle(dateStyle);
+					row.getCell(UPDATE_DATE_COLUMN_INDEX).setCellStyle(dateStyle);
 				}
-
-				// Set values.
-				row.createCell(STATUS_COLUMN_INDEX).setCellValue(issue.getStatus());
-				row.createCell(SEVERITY_COLUMN_INDEX).setCellValue(issue.getSeverity());
-				row.createCell(COMPONENT_COLUMN_INDEX).setCellValue(component);
-				row.createCell(LINE_COLUMN_INDEX).setCellValue(issue.getLine());
-				row.createCell(MESSAGE_COLUMN_INDEX).setCellValue(issue.getMessage());
-				row.createCell(AUTHOR_COLUMN_INDEX).setCellValue(issue.getAuthor());
-				row.createCell(ASSIGNED_COLUMN_INDEX).setCellValue(issue.getAssignee());
-				row.createCell(CREATION_DATE_COLUMN_INDEX).setCellValue(issue.getCreationDate());
-				row.createCell(UPDATE_DATE_COLUMN_INDEX).setCellValue(issue.getUpdateDate());
-				row.createCell(COMPONENT_PATH_COLUMN_INDEX).setCellValue(path);
-
-				// Set date style to date column.
-				row.getCell(CREATION_DATE_COLUMN_INDEX).setCellStyle(dateStyle);
-				row.getCell(UPDATE_DATE_COLUMN_INDEX).setCellStyle(dateStyle);
 			}
 
 			// Auto-size sheet columns.
@@ -157,11 +162,11 @@ public class XlsTasksGenerator {
 			workbook.write(out);
 
 		} catch (FileNotFoundException e) {
-			
+
 			// TODO manage error.
 			e.printStackTrace();
 		} catch (IOException e) {
-			
+
 			// TODO manage error.
 			e.printStackTrace();
 		} finally {
