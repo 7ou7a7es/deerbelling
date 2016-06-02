@@ -1,5 +1,5 @@
 /*
- * sonar_tasksreport_plugin
+ * sonar_deerbelling_plugin
  * Copyright (C) 2015 guillaume jourdan
  * guillaume.jourdan.pro@gmail.com
  *
@@ -17,32 +17,40 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package com.github.gujou.sonar_tasksreport_plugin.plugin;
+package com.github.gujou.sonar_deerbelling_plugin.model.issue;
 
-import org.sonar.api.web.AbstractRubyTemplate;
-import org.sonar.api.web.Description;
-import org.sonar.api.web.RubyRailsWidget;
-import org.sonar.api.web.UserRole;
-import org.sonar.api.web.WidgetCategory;
+import java.util.Date;
 
-@UserRole(UserRole.USER)
-@Description("Issues reporting task in Excel format.")
-@WidgetCategory("Reports")
-public class TasksReportWidget extends AbstractRubyTemplate implements RubyRailsWidget {
-
-	@Override
-	public String getId() {
-		return "tasks-report-widget";
+public class Comment {
+	
+	private String key;
+	private String login;
+	private String htmlText;
+	private Date createdAt;
+	
+	public String getKey() {
+		return key;
 	}
-
-	@Override
-	public String getTitle() {
-		return "Tasks report widget";
+	public void setKey(String key) {
+		this.key = key;
 	}
-
-	@Override
-	protected String getTemplatePath() {
-		return "/com/github/gujou/sonar_tasksreport_plugin/dashboard_widget.erb";
+	public String getLogin() {
+		return login;
 	}
-
+	public void setLogin(String login) {
+		this.login = login;
+	}
+	public String getHtmlText() {
+		return htmlText;
+	}
+	public void setHtmlText(String htmlText) {
+		this.htmlText = htmlText;
+	}
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+	
 }

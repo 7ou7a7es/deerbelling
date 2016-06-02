@@ -1,5 +1,5 @@
 /*
- * sonar_tasksreport_plugin
+ * sonar_deerbelling_plugin
  * Copyright (C) 2015 guillaume jourdan
  * guillaume.jourdan.pro@gmail.com
  *
@@ -17,15 +17,16 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package com.github.gujou.sonar_tasksreport_plugin.plugin;
+package com.github.gujou.sonar_deerbelling_plugin.plugin;
 
-public interface TasksReportKeys {
+public interface ReportsKeys {
 
 	static final String TASKS_REPORT_SKIP_KEY = "tasks.report.skip";
 	static final String TASKS_REPORT_SKIP_DEFAULT = "false";
 
 	static final String TASKS_REPORT_TYPE_XLS_EXTENSION = "xls";
 	static final String TASKS_REPORT_TYPE_CSV_EXTENSION = "csv";
+	static final String APPLICATION_REPORT_TYPE_PDF_EXTENSION = "pdf";
 	
 	public static final String TASKS_REPORT_TYPE_CSV_SEPARATOR_KEY = "tasks.report.csv.separator";
 	public static final String TASKS_REPORT_TYPE_CSV_SEPARATOR_DEFAULT = ",";

@@ -1,5 +1,5 @@
 /*
- * sonar_tasksreport_plugin
+ * sonar_deerbelling_plugin
  * Copyright (C) 2015 guillaume jourdan
  * guillaume.jourdan.pro@gmail.com
  *
@@ -17,7 +17,7 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package com.github.gujou.sonar_tasksreport_plugin.model.issue;
+package com.github.gujou.sonar_deerbelling_plugin.model.issue;
 
 import java.util.Date;
 

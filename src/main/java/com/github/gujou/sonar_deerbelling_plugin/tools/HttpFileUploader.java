@@ -1,5 +1,5 @@
 /*
- * sonar_tasksreport_plugin
+ * sonar_deerbelling_plugin
  * Copyright (C) 2015 guillaume jourdan
  * guillaume.jourdan.pro@gmail.com
  *
@@ -17,7 +17,7 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package com.github.gujou.sonar_tasksreport_plugin.tools;
+package com.github.gujou.sonar_deerbelling_plugin.tools;
 
 import java.io.File;
 
@@ -33,8 +33,8 @@ import org.apache.commons.httpclient.methods.multipart.Part;
 
 public class HttpFileUploader {
 
-	public static void uploadFile(File file, String username, String password, String sonarBaseUrl) {
-		PostMethod filePost = new PostMethod(sonarBaseUrl + "/tasks_report/postReport");
+	public static void uploadFile(File file, String username, String password, String sonarUrl) {
+		PostMethod filePost = new PostMethod(sonarUrl + "/postReport");
 
 		try {
 
@@ -53,16 +53,16 @@ public class HttpFileUploader {
 			if (status == HttpStatus.SC_OK) {
 				
 				// TODO change sysout => log4j.
-				System.out.println("Excel uploaded.");
+				System.out.println("File uploaded.");
 			} else {
 				
 				// TODO change sysout => log4j.
-				System.out.println("Something went wrong storing the Excel at server side. Status: " + status);
+				System.out.println("Something went wrong storing the report at server side. Status: " + status);
 			}
 		} catch (Exception ex) {
 
 			// TODO change sysout => log4j.
-			System.out.println("Something went wrong storing the Excel at server side");
+			System.out.println("Something went wrong storing the report at server side");
 			
 			// TODO manage error.
 			ex.printStackTrace();

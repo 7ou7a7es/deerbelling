@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- * sonar_tasksreport_plugin * Copyright (C) 2015 guillaume jourdan * 
+<!-- * sonar_deerbelling_plugin * Copyright (C) 2015 guillaume jourdan * 
 	guillaume.jourdan.pro@gmail.com * * This program is free software; you can 
 	redistribute it and/or * modify it under the terms of the GNU Lesser General 
 	Public * License as published by the Free Software Foundation; either * version 
@@ -15,7 +15,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.gujou</groupId>
-	<artifactId>sonar-tasksreport-plugin</artifactId>
+	<artifactId>sonar-deerbelling-plugin</artifactId>
 	<version>0.1-SNAPSHOT</version>
 	<parent>
 		<groupId>org.codehaus.sonar-plugins</groupId>
@@ -24,8 +24,8 @@
 	</parent>
 	<packaging>sonar-plugin</packaging>
 	<url>https://github.com/gujou/sonar_tasksreport_plugin</url>
-	<name>sonar_tasksreport_plugin</name>
-	<description>SonarQube plugin for tasks reporting</description>
+	<name>sonar_deerbelling_plugin</name>
+	<description>SonarQube plugin for application and tasks reporting</description>
 	<inceptionYear>2015</inceptionYear>
 	<licenses>
 		<license>
@@ -51,8 +51,8 @@
 		<tag>HEAD</tag>
 	</scm>
 	<properties>
-		<sonar.pluginName>Tasks Report</sonar.pluginName>
-		<sonar.pluginClass>com.github.gujou.sonar_tasksreport_plugin.plugin.TasksReportPlugin</sonar.pluginClass>
+		<sonar.pluginName>Reports Plugin</sonar.pluginName>
+		<sonar.pluginClass>com.github.gujou.sonar_deerbelling_plugin.plugin.ReportsPlugin</sonar.pluginClass>
 		<sonar.version>5.1</sonar.version>
 		<license.name>GNU LGPL 3</license.name>
 		<license.title>${project.name}</license.title>

@@ -1,0 +1,12 @@
+<div class="dashbox">
+    <h3>Application Report</h3>
+    <%
+      filename = Rails.root.join('application-report', 'application_report_' + @project.key.gsub(':', '-') + '.pdf')
+      if File.exists?(filename)
+    %>
+      <h4>Get application report</h4>
+      <a href="<%= ApplicationController.root_context -%>/application_report/getApplicationPdf?resource=<%= @snapshot.project_id %>"><%= image_tag(url_for_static(:plugin => 'deerbelling', :path => 'pdf-file.png'), :size => '71x64') %></a>
+    <% else %>
+      <h4>Report is not available. At least one analysis is required after installing the plugin</h4>
+    <% end %>
+</div>

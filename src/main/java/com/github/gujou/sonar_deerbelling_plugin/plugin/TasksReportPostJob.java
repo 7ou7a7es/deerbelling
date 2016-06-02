@@ -1,5 +1,5 @@
 /*
- * sonar_tasksreport_plugin
+ * sonar_deerbelling_plugin
  * Copyright (C) 2015 guillaume jourdan
  * guillaume.jourdan.pro@gmail.com
  *
@@ -17,7 +17,7 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package com.github.gujou.sonar_tasksreport_plugin.plugin;
+package com.github.gujou.sonar_deerbelling_plugin.plugin;
 
 import java.io.File;
 
@@ -30,9 +30,10 @@ import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.config.Settings;
 import org.sonar.api.resources.Project;
 
-import com.github.gujou.sonar_tasksreport_plugin.service.CsvTasksGenerator;
-import com.github.gujou.sonar_tasksreport_plugin.service.XlsTasksGenerator;
-import com.github.gujou.sonar_tasksreport_plugin.tools.HttpFileUploader;
+import com.github.gujou.sonar_deerbelling_plugin.service.CsvTasksGenerator;
+import com.github.gujou.sonar_deerbelling_plugin.service.PdfApplicationGenerator;
+import com.github.gujou.sonar_deerbelling_plugin.service.XlsTasksGenerator;
+import com.github.gujou.sonar_deerbelling_plugin.tools.HttpFileUploader;
 
 public class TasksReportPostJob implements PostJob, CheckProject {
 
@@ -47,13 +48,13 @@ public class TasksReportPostJob implements PostJob, CheckProject {
 
 	public TasksReportPostJob(Settings sonarSettings, FileSystem sonarFs) {
 		sonarFileSystem = sonarFs;
-		tasksreportSkip = sonarSettings.getBoolean(TasksReportKeys.TASKS_REPORT_SKIP_KEY);
-		sonarUrl = sonarSettings.hasKey(TasksReportKeys.TASKS_REPORT_SONAR_URL_KEY)
-				? sonarSettings.getString(TasksReportKeys.TASKS_REPORT_SONAR_URL_KEY)
-				: TasksReportKeys.TASKS_REPORT_SONAR_URL_DEFAULT;
-		sonarLogin = sonarSettings.getString(TasksReportKeys.TASKS_REPORT_SONAR_LOGIN_KEY);
-		sonarPassword = sonarSettings.getString(TasksReportKeys.TASKS_REPORT_SONAR_PWD_KEY);
-		csvSepartor = sonarSettings.getString(TasksReportKeys.TASKS_REPORT_TYPE_CSV_SEPARATOR_KEY);
+		tasksreportSkip = sonarSettings.getBoolean(ReportsKeys.TASKS_REPORT_SKIP_KEY);
+		sonarUrl = sonarSettings.hasKey(ReportsKeys.TASKS_REPORT_SONAR_URL_KEY)
+				? sonarSettings.getString(ReportsKeys.TASKS_REPORT_SONAR_URL_KEY)
+				: ReportsKeys.TASKS_REPORT_SONAR_URL_DEFAULT;
+		sonarLogin = sonarSettings.getString(ReportsKeys.TASKS_REPORT_SONAR_LOGIN_KEY);
+		sonarPassword = sonarSettings.getString(ReportsKeys.TASKS_REPORT_SONAR_PWD_KEY);
+		csvSepartor = sonarSettings.getString(ReportsKeys.TASKS_REPORT_TYPE_CSV_SEPARATOR_KEY);
 
 	}
 
@@ -70,7 +71,9 @@ public class TasksReportPostJob implements PostJob, CheckProject {
 				sonarPassword);
 
 		if (generateFile != null) {
-			HttpFileUploader.uploadFile(generateFile, sonarLogin, sonarPassword, "http://localhost:9000");
+
+			// TODO replace localhost.
+			HttpFileUploader.uploadFile(generateFile, sonarLogin, sonarPassword, "http://localhost:9000/tasks_report");
 		} else {
 
 			// TODO change sysout => log4j.
@@ -81,11 +84,26 @@ public class TasksReportPostJob implements PostJob, CheckProject {
 				sonarPassword, csvSepartor);
 
 		if (generateFile != null) {
-			HttpFileUploader.uploadFile(generateFile, sonarLogin, sonarPassword, "http://localhost:9000");
+
+			// TODO replace localhost.
+			HttpFileUploader.uploadFile(generateFile, sonarLogin, sonarPassword, "http://localhost:9000/tasks_report");
 		} else {
 
 			// TODO change sysout => log4j.
 			System.out.println("Error : csv file not generated.");
+		}
+
+		generateFile = PdfApplicationGenerator.generateFile(sonarProject, sonarFileSystem, sonarUrl, sonarLogin,
+				sonarPassword);
+
+		if (generateFile != null) {
+
+			// TODO replace localhost.
+			HttpFileUploader.uploadFile(generateFile, sonarLogin, sonarPassword, "http://localhost:9000/application_report");
+		} else {
+
+			// TODO change sysout => log4j.
+			System.out.println("Error : pdf file not generated.");
 		}
 
 	}

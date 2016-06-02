@@ -1,5 +1,5 @@
 /*
- * sonar_tasksreport_plugin
+ * sonar_deerbelling_plugin
  * Copyright (C) 2015 guillaume jourdan
  * guillaume.jourdan.pro@gmail.com
  *
@@ -17,7 +17,7 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package com.github.gujou.sonar_tasksreport_plugin.service;
+package com.github.gujou.sonar_deerbelling_plugin.service;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -29,16 +29,16 @@ import org.apache.commons.lang.StringUtils;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.resources.Project;
 
-import com.github.gujou.sonar_tasksreport_plugin.gateway.IssueGateway;
-import com.github.gujou.sonar_tasksreport_plugin.model.issue.Issue;
-import com.github.gujou.sonar_tasksreport_plugin.model.issue.Issues;
-import com.github.gujou.sonar_tasksreport_plugin.plugin.TasksReportKeys;
+import com.github.gujou.sonar_deerbelling_plugin.gateway.IssueGateway;
+import com.github.gujou.sonar_deerbelling_plugin.model.issue.Issue;
+import com.github.gujou.sonar_deerbelling_plugin.model.issue.Issues;
+import com.github.gujou.sonar_deerbelling_plugin.plugin.ReportsKeys;
 
 public class CsvTasksGenerator {
 
 	private static final String lineSeparator = System.lineSeparator();
 
-	private static String csvFileSeparator = TasksReportKeys.TASKS_REPORT_TYPE_CSV_SEPARATOR_DEFAULT;
+	private static String csvFileSeparator = ReportsKeys.TASKS_REPORT_TYPE_CSV_SEPARATOR_DEFAULT;
 
 	private static DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
@@ -47,7 +47,7 @@ public class CsvTasksGenerator {
 
 		String filePath = sonarFileSystem.workDir().getAbsolutePath() + File.separator + "tasks_report_"
 				+ sonarProject.getEffectiveKey().replace(':', '-') + "."
-				+ TasksReportKeys.TASKS_REPORT_TYPE_CSV_EXTENSION;
+				+ ReportsKeys.TASKS_REPORT_TYPE_CSV_EXTENSION;
 
 		if (StringUtils.isNotBlank(fileSeparator)) {
 			csvFileSeparator = fileSeparator;

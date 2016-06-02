@@ -1,0 +1,13 @@
+<div class="dashbox">
+    <h3>Tasks Reports</h3>
+    <%
+      filename = Rails.root.join('tasks-report', 'tasks_report_' + @project.key.gsub(':', '-') + '.xls')
+      if File.exists?(filename)
+    %>
+      <h4>Get tasks in Excel report</h4>
+      <a href="<%= ApplicationController.root_context -%>/tasks_report/getTasksXls?resource=<%= @snapshot.project_id %>"><%= image_tag(url_for_static(:plugin => 'deerbelling', :path => 'excel-file.png'), :size => '67x64') %></a>
+      <a href="<%= ApplicationController.root_context -%>/tasks_report/getTasksCsv?resource=<%= @snapshot.project_id %>"><%= image_tag(url_for_static(:plugin => 'deerbelling', :path => 'csv-file.png'), :size => '67x64') %></a>
+    <% else %>
+      <h4>Reports is not available. At least one analysis is required after installing the plugin</h4>
+    <% end %>
+</div>
