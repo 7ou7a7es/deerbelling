@@ -17,7 +17,7 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package com.github.gujou.sonar_deerbelling_plugin.plugin;
+package com.github.gujou.deerbelling.sonarqube.plugin;
 
 import java.io.File;
 
@@ -30,10 +30,10 @@ import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.config.Settings;
 import org.sonar.api.resources.Project;
 
-import com.github.gujou.sonar_deerbelling_plugin.service.CsvTasksGenerator;
-import com.github.gujou.sonar_deerbelling_plugin.service.PdfApplicationGenerator;
-import com.github.gujou.sonar_deerbelling_plugin.service.XlsTasksGenerator;
-import com.github.gujou.sonar_deerbelling_plugin.tools.HttpFileUploader;
+import com.github.gujou.deerbelling.sonarqube.service.CsvTasksGenerator;
+import com.github.gujou.deerbelling.sonarqube.service.PdfApplicationGenerator;
+import com.github.gujou.deerbelling.sonarqube.service.XlsTasksGenerator;
+import com.github.gujou.deerbelling.sonarqube.tools.HttpFileUploader;
 
 public class TasksReportPostJob implements PostJob, CheckProject {
 

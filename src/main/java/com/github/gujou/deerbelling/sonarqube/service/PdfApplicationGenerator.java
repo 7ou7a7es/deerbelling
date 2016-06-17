@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
 
-package com.github.gujou.sonar_deerbelling_plugin.service;
+package com.github.gujou.deerbelling.sonarqube.service;
 
 import java.awt.Color;
 import java.io.ByteArrayOutputStream;
@@ -47,7 +47,7 @@ import org.apache.xmpbox.xml.XmpSerializer;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.resources.Project;
 
-import com.github.gujou.sonar_deerbelling_plugin.plugin.ReportsKeys;
+import com.github.gujou.deerbelling.sonarqube.plugin.ReportsKeys;
 
 /**
  * Creates a simple PDF/A document.
@@ -72,31 +72,26 @@ public final class PdfApplicationGenerator {
 
 	private final static Color DARK_RED_COLOR = new Color(134, 0, 0);
 
-	private static int marginHeight = DEFAULT_marginHeight;
+	private static final String REPORT_PROVERB = "Who frequents the kitchen smells of smoke";
+	
+	private static final int FONT_MAX_SIZE = 224;
+
+	private static int positionHeight = DEFAULT_marginHeight;
 
 	public static File generateFile(Project sonarProject, FileSystem sonarFileSystem, String sonarUrl,
 			String sonarLogin, String sonarPassword) {
-		// if (args.length != 3) {
-		// System.err.println("usage: " +
-		// PdfApplicationGenerator.class.getName() + " <output-file> <Message>
-		// <ttf-file>");
-		// System.exit(1);
-		// }
-		//
-		// for (String arg : args) {
-		// System.err.println("args: " + arg);
-		// }
+
+		String projectName = sonarProject.getName().replaceAll("[^A-Za-z0-9 ]", " ").trim().replaceAll(" +", " ");
 
 		String filePath = sonarFileSystem.workDir().getAbsolutePath() + File.separator + "application_report_"
-				+ sonarProject.getEffectiveKey().replace(':', '-') + "."
-				+ ReportsKeys.APPLICATION_REPORT_TYPE_PDF_EXTENSION;
+				+ projectName + "." + ReportsKeys.APPLICATION_REPORT_TYPE_PDF_EXTENSION;
 
 		File file = new File(filePath);
-		String message = "deerbelling";
 		String fontfile = "/home/gujou/.gimp-2.8/fonts/28_Days_Later.ttf";
 
 		PDDocument doc = new PDDocument();
 		try {
+
 			PDPage page = initNewPage(doc);
 
 			// load the font as this needs to be embedded
@@ -104,11 +99,23 @@ public final class PdfApplicationGenerator {
 
 			PDImageXObject image = PDImageXObject.createFromFile("/home/gujou/Pictures/belling/BELLING3_logo.png", doc);
 
-			centerText(message, font, 100, page, doc);
+			centerText("deerbelling report", font, 70, page, doc);
 			// centerImage(image, page, doc, 400, 400);
 			centerImage(image, page, doc);
-			centerText("REPORT", font, 160, page, doc);
-			centerText("Who frequents the kitchen smells of smoke", font, 25, page, doc);
+
+			int projectNameFontSize = maxSizeFont(projectName, font, page);
+			
+			projectNameFontSize = (projectNameFontSize > FONT_MAX_SIZE) ? FONT_MAX_SIZE : projectNameFontSize;
+
+			float projectNameHeight = font.getFontDescriptor().getFontBoundingBox().getHeight() / 1000
+					* projectNameFontSize;
+			float reportProverbHeight = font.getFontDescriptor().getFontBoundingBox().getHeight() / 1000 * 25;
+
+			positionHeight += (page.getMediaBox().getHeight() - positionHeight - projectNameHeight
+					- reportProverbHeight - spaceHeight) / 2;
+
+			centerText(projectName, font, projectNameFontSize, page, doc);
+			centerText(REPORT_PROVERB, font, 25, page, doc);
 
 			PDImageXObject icon_lines = PDImageXObject
 					.createFromFile("/home/gujou/Pictures/icon_flat/Saving Book-50.png", doc);
@@ -188,7 +195,7 @@ public final class PdfApplicationGenerator {
 			// 20, page, doc);
 
 			title("Global Structure", font, 35, page, doc);
-
+			
 			attribute(icon_lines, 30, 30, "7360", " lines of code", font, 20, page, doc);
 			attribute(icon_packages, 30, 30, "3", " packages", font, 20, page, doc);
 			attribute(icon_classes, 30, 30, "114", " classes", font, 20, page, doc);
@@ -257,8 +264,10 @@ public final class PdfApplicationGenerator {
 				metadata.importXMPMetadata(baos.toByteArray());
 				doc.getDocumentCatalog().setMetadata(metadata);
 			} catch (BadFieldValueException e) {
-				// won't happen here, as the provided value is valid
-				throw new IllegalArgumentException(e);
+
+				e.printStackTrace();
+				// // won't happen here, as the provided value is valid
+				// throw new IllegalArgumentException(e);
 			} catch (TransformerException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -283,9 +292,11 @@ public final class PdfApplicationGenerator {
 
 			doc.save(file);
 		} catch (IOException e1) {
+
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} finally {
+
 			IOUtils.closeQuietly(doc);
 		}
 		return file;
@@ -293,7 +304,7 @@ public final class PdfApplicationGenerator {
 
 	private static void title(String text, PDFont font, int fontSize, PDPage page, PDDocument doc) throws IOException {
 
-		marginHeight += (titleSpaceHeight * 2);
+		positionHeight += (titleSpaceHeight * 2);
 
 		PDPageContentStream stream = new PDPageContentStream(doc, page, AppendMode.APPEND, false);
 
@@ -303,7 +314,7 @@ public final class PdfApplicationGenerator {
 		stream.beginText();
 		stream.setFont(font, fontSize);
 
-		stream.newLineAtOffset(titleMarginWidth, page.getMediaBox().getHeight() - marginHeight - textHeight);
+		stream.newLineAtOffset(titleMarginWidth, page.getMediaBox().getHeight() - positionHeight - textHeight);
 
 		for (String word : text.split(" ")) {
 			if (word != null && word.length() > 0) {
@@ -317,12 +328,13 @@ public final class PdfApplicationGenerator {
 
 		stream.endText();
 		// stream.drawLine(xOne, yOne - .5, xTwo, yYwo - .5);
-		stream.moveTo(titleMarginWidth, page.getMediaBox().getHeight() - marginHeight - textHeight - 0.5f);
-		stream.lineTo(titleMarginWidth + textWidth, page.getMediaBox().getHeight() - marginHeight - textHeight - 0.5f);
+		stream.moveTo(titleMarginWidth, page.getMediaBox().getHeight() - positionHeight - textHeight - 0.5f);
+		stream.lineTo(titleMarginWidth + textWidth,
+				page.getMediaBox().getHeight() - positionHeight - textHeight - 0.5f);
 		stream.stroke();
 		stream.close();
 
-		marginHeight += titleSpaceHeight + textHeight;
+		positionHeight += titleSpaceHeight + textHeight;
 
 	}
 
@@ -337,13 +349,23 @@ public final class PdfApplicationGenerator {
 		stream.beginText();
 		stream.setFont(font, fontSize);
 		stream.newLineAtOffset((page.getMediaBox().getWidth() - textWidth) / 2,
-				page.getMediaBox().getHeight() - marginHeight - textHeight);
+				page.getMediaBox().getHeight() - positionHeight - textHeight);
 		stream.showText(text);
 		stream.endText();
 		stream.close();
 
-		marginHeight += textHeight;
+		positionHeight += textHeight;
 
+	}
+
+	private static int maxSizeFont(String text, PDFont font, PDPage page) throws IOException {
+		return (int) (page.getMediaBox().getWidth() / (font.getStringWidth(text) * 1.1 / 1000));
+	}
+
+	private static void maximizeText(String text, PDFont font, PDPage page, PDDocument doc) throws IOException {
+		PDPageContentStream stream = new PDPageContentStream(doc, page, AppendMode.APPEND, false);
+		int fontSize = maxSizeFont(text, font, page);
+		centerText(text, font, fontSize, page, doc);
 	}
 
 	private static void centerImage(PDImageXObject image, PDPage page, PDDocument doc) throws IOException {
@@ -357,10 +379,10 @@ public final class PdfApplicationGenerator {
 
 		PDPageContentStream stream = new PDPageContentStream(doc, page, AppendMode.APPEND, false);
 		stream.drawImage(image, (page.getMediaBox().getWidth() - width) / 2,
-				page.getMediaBox().getHeight() - marginHeight - height, width, height);
+				page.getMediaBox().getHeight() - positionHeight - height, width, height);
 		stream.close();
 
-		marginHeight += height;
+		positionHeight += height;
 
 	}
 
@@ -372,11 +394,11 @@ public final class PdfApplicationGenerator {
 		int dataFontSize = (int) (fontSize * 1.5f);
 		int labelFontSize = fontSize;
 
-		float logoYCoordinate = page.getMediaBox().getHeight() - marginHeight - logoHeight;
+		float logoYCoordinate = page.getMediaBox().getHeight() - positionHeight - logoHeight;
 		float textWidth = (font.getStringWidth(data) / 1000 * dataFontSize)
 				+ (font.getStringWidth(label) / 1000 * labelFontSize);
 		float textHeight = font.getFontDescriptor().getFontBoundingBox().getHeight() / 1000 * dataFontSize;
-		float textYCoordinate = page.getMediaBox().getHeight() - marginHeight - (logoHeight / 2) - (textHeight / 2);
+		float textYCoordinate = page.getMediaBox().getHeight() - positionHeight - (logoHeight / 2) - (textHeight / 2);
 		float dataXCoordinate = logoMarginWidth + logoHeight + spaceWidth;
 
 		stream.drawImage(logo, logoMarginWidth, logoYCoordinate, logoWidth, logoHeight);
@@ -403,7 +425,7 @@ public final class PdfApplicationGenerator {
 		stream.endText();
 		stream.close();
 
-		marginHeight += spaceHeight + ((logoHeight < textHeight) ? textHeight : logoHeight);
+		positionHeight += spaceHeight + ((logoHeight < textHeight) ? textHeight : logoHeight);
 	}
 
 	private static void attribute(PDImageXObject logo, int logoHeight, int logoWidth, String data, String label,
@@ -412,7 +434,7 @@ public final class PdfApplicationGenerator {
 	}
 
 	private static PDPage initNewPage(PDDocument doc) {
-		marginHeight = DEFAULT_marginHeight;
+		positionHeight = DEFAULT_marginHeight;
 		PDPage page = new PDPage();
 		doc.addPage(page);
 		return page;

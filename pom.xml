@@ -52,7 +52,7 @@
 	</scm>
 	<properties>
 		<sonar.pluginName>Reports Plugin</sonar.pluginName>
-		<sonar.pluginClass>com.github.gujou.sonar_deerbelling_plugin.plugin.ReportsPlugin</sonar.pluginClass>
+		<sonar.pluginClass>com.github.gujou.deerbelling.sonarqube.plugin.ReportsPlugin</sonar.pluginClass>
 		<sonar.version>5.1</sonar.version>
 		<license.name>GNU LGPL 3</license.name>
 		<license.title>${project.name}</license.title>
@@ -153,7 +153,7 @@
 			<artifactId>pdfbox</artifactId>
 			<version>2.0.0</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.apache.pdfbox</groupId>
 			<artifactId>xmpbox</artifactId>
@@ -171,6 +171,14 @@
 					<artifactId>commons-logging</artifactId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+
+
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
 		</dependency>
 	</dependencies>
 </project>

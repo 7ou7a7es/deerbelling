@@ -17,7 +17,7 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package com.github.gujou.sonar_deerbelling_plugin.plugin;
+package com.github.gujou.deerbelling.sonarqube.plugin;
 
 import org.sonar.api.web.AbstractRubyTemplate;
 import org.sonar.api.web.Description;
@@ -26,23 +26,23 @@ import org.sonar.api.web.UserRole;
 import org.sonar.api.web.WidgetCategory;
 
 @UserRole(UserRole.USER)
-@Description("Application quality report.")
+@Description("Sonar issues list in reports of tasks.")
 @WidgetCategory("Reports")
-public class ApplicationReportWidget extends AbstractRubyTemplate implements RubyRailsWidget {
+public class TasksReportWidget extends AbstractRubyTemplate implements RubyRailsWidget {
 
 	@Override
 	public String getId() {
-		return "application-report-widget";
+		return "tasks-report-widget";
 	}
 
 	@Override
 	public String getTitle() {
-		return "Application report widget";
+		return "Tasks reports widget";
 	}
 
 	@Override
 	protected String getTemplatePath() {
-		return "/com/github/gujou/sonar_deerbelling_plugin/application_report_dashboard_widget.erb";
+		return "/com/github/gujou/sonar_deerbelling_plugin/dashboard_widget.erb";
 	}
 
 }

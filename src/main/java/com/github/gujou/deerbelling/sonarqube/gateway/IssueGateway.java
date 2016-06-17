@@ -17,7 +17,7 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package com.github.gujou.sonar_deerbelling_plugin.gateway;
+package com.github.gujou.deerbelling.sonarqube.gateway;
 
 import java.io.IOException;
 
@@ -37,7 +37,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
-import com.github.gujou.sonar_deerbelling_plugin.model.issue.Issues;
+import com.github.gujou.deerbelling.sonarqube.model.issue.Issues;
 
 public class IssueGateway {
 

@@ -17,7 +17,7 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package com.github.gujou.sonar_deerbelling_plugin.service;
+package com.github.gujou.deerbelling.sonarqube.service;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -29,10 +29,10 @@ import org.apache.commons.lang.StringUtils;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.resources.Project;
 
-import com.github.gujou.sonar_deerbelling_plugin.gateway.IssueGateway;
-import com.github.gujou.sonar_deerbelling_plugin.model.issue.Issue;
-import com.github.gujou.sonar_deerbelling_plugin.model.issue.Issues;
-import com.github.gujou.sonar_deerbelling_plugin.plugin.ReportsKeys;
+import com.github.gujou.deerbelling.sonarqube.gateway.IssueGateway;
+import com.github.gujou.deerbelling.sonarqube.model.issue.Issue;
+import com.github.gujou.deerbelling.sonarqube.model.issue.Issues;
+import com.github.gujou.deerbelling.sonarqube.plugin.ReportsKeys;
 
 public class CsvTasksGenerator {
 

@@ -17,24 +17,32 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package com.github.gujou.sonar_deerbelling_plugin.model.issue;
+package com.github.gujou.deerbelling.sonarqube.plugin;
 
-import java.util.List;
+import org.sonar.api.web.AbstractRubyTemplate;
+import org.sonar.api.web.Description;
+import org.sonar.api.web.RubyRailsWidget;
+import org.sonar.api.web.UserRole;
+import org.sonar.api.web.WidgetCategory;
 
-public class Issues {
+@UserRole(UserRole.USER)
+@Description("Application quality report.")
+@WidgetCategory("Reports")
+public class ApplicationReportWidget extends AbstractRubyTemplate implements RubyRailsWidget {
 
-	private List<Issue> issues;
-
-	public List<Issue> getIssues() {
-		return issues;
-	}
-
-	public void setIssues(List<Issue> issues) {
-		this.issues = issues;
+	@Override
+	public String getId() {
+		return "application-report-widget";
 	}
 
 	@Override
-	public String toString() {
-		return "issues=" + issues;
+	public String getTitle() {
+		return "Application report widget";
 	}
+
+	@Override
+	protected String getTemplatePath() {
+		return "/com/github/gujou/sonar_deerbelling_plugin/application_report_dashboard_widget.erb";
+	}
+
 }
