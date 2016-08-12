@@ -77,6 +77,8 @@ public final class PdfApplicationGenerator {
 	private static final int FONT_MAX_SIZE = 224;
 
 	private static int positionHeight = DEFAULT_marginHeight;
+	
+	private static PDPage page;
 
 	public static File generateFile(Project sonarProject, FileSystem sonarFileSystem, String sonarUrl,
 			String sonarLogin, String sonarPassword) {
@@ -92,7 +94,7 @@ public final class PdfApplicationGenerator {
 		PDDocument doc = new PDDocument();
 		try {
 
-			PDPage page = initNewPage(doc);
+			initNewPage(doc);
 
 			// load the font as this needs to be embedded
 			PDFont font = PDType0Font.load(doc, new File(fontfile));
@@ -117,6 +119,8 @@ public final class PdfApplicationGenerator {
 			centerText(projectName, font, projectNameFontSize, page, doc);
 			centerText(REPORT_PROVERB, font, 25, page, doc);
 
+			initNewPage(doc);
+			
 			PDImageXObject icon_lines = PDImageXObject
 					.createFromFile("/home/gujou/Pictures/icon_flat/Saving Book-50.png", doc);
 
@@ -186,64 +190,191 @@ public final class PdfApplicationGenerator {
 			PDImageXObject icon_dev_issues = PDImageXObject
 					.createFromFile("/home/gujou/Pictures/icon_flat/Full of Shit-50.png", doc);
 
-			page = initNewPage(doc);
+			
 
 			// attribute(icon_lines, "7360", " lines of code", font, 20, page,
 			// doc);
 			//
 			// attribute(icon_comments, "11 dot 3", " percent comments", font,
 			// 20, page, doc);
-
-			title("Global Structure", font, 35, page, doc);
 			
-			attribute(icon_lines, 30, 30, "7360", " lines of code", font, 20, page, doc);
-			attribute(icon_packages, 30, 30, "3", " packages", font, 20, page, doc);
-			attribute(icon_classes, 30, 30, "114", " classes", font, 20, page, doc);
-			attribute(icon_methods, 30, 30, "579", " methods", font, 20, page, doc);
+			//http://localhost:9000/api/resources?resource=com.virbac.petfood:petfood-parent
+			
+			title("Global Information", font, 35, doc);
+			attribute(icon_lines, 30, 30, "7360", " project name", font, 20, doc); // TODO switch field & value : resource => name
+			attribute(icon_lines, 30, 30, "7360", " version", font, 20, doc); //  TODO switch field & value : resource => version
+			attribute(icon_lines, 30, 30, "7360", " project analysis date", font, 20, doc); //  TODO switch field & value : resource => date
+			attribute(icon_lines, 30, 30, "7360", " first analysis date", font, 20, doc); //  TODO switch field & value : resource => creationDate
+			
 
-			title("Global Analysis", font, 35, page, doc);
+			title("Global Size", font, 35, doc);
+			
+			attribute(icon_lines, 30, 30, "7360", " lines of code", font, 20, doc); // ncloc
+			attribute(icon_lines, 30, 30, "25840", " lines", font, 20, doc); // lines => TODO
+			attribute(icon_classes, 30, 30, "114", " classes", font, 20, doc); // classes
+			attribute(icon_classes, 30, 30, "250", " files", font, 20, doc); // files => TODO
+			attribute(icon_packages, 30, 30, "3", " directories", font, 20, doc); // directories
+			attribute(icon_packages, 30, 30, "3", " projects", font, 20, doc); // projects
+			attribute(icon_methods, 30, 30, "579", " methods", font, 20, doc); //functions
+			attribute(icon_methods, 30, 30, "579", " getters and setters", font, 20, doc); //accessors
+			attribute(icon_methods, 30, 30, "579", "  public API", font, 20, doc); //public_api
+			attribute(icon_methods, 30, 30, "579", " statements", font, 20, doc); //statements
+			attribute(icon_debt, 30, 30, "7d 6h", " of technical debt", font, 20, doc); // sqale_index
+			attribute(icon_lines, 30, 30, "25840", " generated code lines", font, 20, doc); // generated_ncloc
+			attribute(icon_lines, 30, 30, "25840", " generated lines", font, 20, doc); // generated_lines
 
-			attribute(icon_bugs, 30, 30, "533", " issues", font, 20, page, doc);
-			attribute(icon_complexity, 30, 30, "3", " complexity", font, 20, page, doc);
-			attribute(icon_cut_files, 30, 30, "41", " files dependencies to cut", font, 20, page, doc);
-			attribute(icon_cut_directories, 30, 30, "10", " directories dependencies to cut", font, 20, page, doc);
-			attribute(icon_duplicate, 30, 30, "82", " duplicate blocks", font, 20, page, doc, "4.3");
+			title("Global Issues", font, 35, doc);
 
-			page = initNewPage(doc);
+			attribute(icon_bugs, 30, 30, "533", " issues", font, 20, doc); // violations + new method for new_violations
+			attribute(icon_bugs, 30, 30, "533", " blocker issues", font, 20, doc); // blocker_violations + new method for new_blocker_violations
+			attribute(icon_bugs, 30, 30, "533", " critical issues", font, 20, doc); // critical_violations + new method for new_critical_violations
+			attribute(icon_bugs, 30, 30, "533", " major issues", font, 20, doc); // major_violations + new method for new_major_violations
+			attribute(icon_bugs, 30, 30, "533", " minor issues", font, 20, doc); // minor_violations + new method for new_minor_violations
+			attribute(icon_bugs, 30, 30, "533", " info issues", font, 20, doc); // info_violations + new method for new_info_violations
+			attribute(icon_bugs, 30, 30, "533", " false positive issues", font, 20, doc); // false_positive_issues
+			attribute(icon_bugs, 30, 30, "533", " open issues", font, 20, doc); // open_issues
+			attribute(icon_bugs, 30, 30, "533", " confirmed issues", font, 20, doc); // confirmed_issues
+			attribute(icon_bugs, 30, 30, "533", " reopened issues", font, 20, doc); // reopened_issues
+			attribute(icon_bugs, 30, 30, "533", " weighted issues", font, 20, doc); // weighted_violations
+			attribute(icon_bugs, 30, 30, "533", " rules compliance", font, 20, doc); // violations_density
+			
+			title("Global Complexity", font, 35, doc);
+			attribute(icon_complexity, 30, 30, "3", " complexity", font, 20, doc); // complexity
+			attribute(icon_complexity, 30, 30, "3", " complexity by class", font, 20, doc); // class_complexity
+			attribute(icon_complexity, 30, 30, "3", " complexity by file", font, 20, doc); // file_complexity
+			attribute(icon_complexity, 30, 30, "3", " complexity by method", font, 20, doc); // function_complexity
+			
+			title("Global Design", font, 35, doc);
+			attribute(icon_cut_files, 30, 30, "41", " file cycles detected inside a directory", font, 20, doc); //file_cycles
+			attribute(icon_cut_files, 30, 30, "41", " file dependencies inside a directory", font, 20, doc); //file_edges_weight
+			attribute(icon_cut_files, 30, 30, "41", " file dependencies to cut ", font, 20, doc); //package_tangles
+			attribute(icon_cut_files, 30, 30, "41", " suspect file dependencies ", font, 20, doc); //file_tangles (This metric is available at directory level.) + TODO file_tangle_index (File tangle index = 2 * (File tangle / File edges weight) * 100)
+			attribute(icon_cut_files, 30, 30, "41", " directory cycles detected", font, 20, doc); //package_cycles
+			attribute(icon_cut_directories, 30, 30, "10", " directory dependencies to cut", font, 20, doc); //package_feedback_edges + TODO package_tangle_index
+			attribute(icon_cut_files, 30, 30, "41", " file dependencies between directories", font, 20, doc); //package_edges_weight
+			attribute(icon_cut_files, 30, 30, "41", " file dependencies to cut in order to remove cycles between files inside a directorys", font, 20, doc); //file_feedback_edges
+			
+			title("Global Duplications", font, 35, doc);
+			attribute(icon_duplicate, 30, 30, "82", " duplicated lines", font, 20, doc, "4.3"); // duplicated_lines + duplicated_lines_density
+			attribute(icon_duplicate, 30, 30, "82", " duplicated blocks", font, 20, doc); // duplicated_blocks
+			attribute(icon_duplicate, 30, 30, "82", " duplicated files", font, 20, doc); // duplicated_files
 
-			title("Global Quality", font, 35, page, doc);
+			title("Global Documentation", font, 35, doc);
 
-			attribute(icon_debt, 30, 30, "7d 6h", " of technical debt", font, 20, page, doc);
-			attribute(icon_comments, 30, 30, "933", " comment lines", font, 20, page, doc, "11.3");
-			attribute(icon_javadoc, 30, 30, "397", " public undocumented API", font, 20, page, doc, "89.9");
+			attribute(icon_comments, 30, 30, "933", " comment lines", font, 20, doc, "11.3"); // comment_lines + comment_lines_density
+			attribute(icon_javadoc, 30, 30, "397", " public undocumented API", font, 20, doc, "89.9"); // public_undocumented_api + (1 - public_documented_api_density %)
 
-			title("Global Test", font, 35, page, doc);
+			title("Global Test", font, 35, doc);
 
-			attribute(icon_tests_success, 30, 30, "185", " success", font, 20, page, doc, "100");
-			attribute(icon_tests_fail, 30, 30, "0", " failures and errors", font, 20, page, doc, "0");
-			attribute(icon_tests_cover, 30, 30, "11721", " covered lines", font, 20, page, doc, "26");
+			attribute(icon_tests_success, 30, 30, "185", " unit tests", font, 20, doc, "100"); //tests + TODO test_execution_time
+			attribute(icon_tests_success, 30, 30, "185", " unit tests in failure", font, 20, doc, "100"); // test_failures
+			attribute(icon_tests_fail, 30, 30, "0", " unit tests in error", font, 20, doc, "0"); // test_errors + calcul error density
+			attribute(icon_tests_fail, 30, 30, "0", " unit tests skipped", font, 20, doc, "0"); // skipped_tests + calcul fail density
+			attribute(icon_tests_fail, 30, 30, "0", " unit tests in success", font, 20, doc, "0"); // calcul success + test_success_density
+			attribute(icon_tests_fail, 30, 30, "0", " PERCENT unit tests coverage", font, 20, doc, "0"); // coverage + new_coverage
+			attribute(icon_tests_cover, 30, 30, "11721", " covered lines", font, 20, doc, "26"); // line_coverage + new_line_coverage
+			attribute(icon_tests_cover, 30, 30, "9", " PERCENT condition covered", font, 20, doc, "26"); // branch_coverage + new_branch_coverage
+			attribute(icon_tests_cover, 30, 30, "9", " lines not covered by unit tests", font, 20, doc, "26"); // uncovered_lines + new_uncovered_lines
+			attribute(icon_tests_cover, 30, 30, "9", " branches not covered by unit tests", font, 20, doc, "26"); // uncovered_conditions + new_uncovered_conditions
+			//Branch coverage hits	branch_coverage_hits_data	List of covered branches.
+			
 
-			title("Global libraries", font, 35, page, doc);
+			title("Global libraries", font, 35, doc);
 
-			attribute(icon_declared, 30, 30, "56", " declared dependencies", font, 20, page, doc);
-			attribute(icon_unused, 30, 30, "5", " unused dependencies", font, 20, page, doc);
-			attribute(icon_undeclared, 30, 30, "12", " undeclared dependencies", font, 20, page, doc);
+			attribute(icon_declared, 30, 30, "56", " declared dependencies", font, 20, doc);
+			attribute(icon_unused, 30, 30, "5", " unused dependencies", font, 20, doc);
+			attribute(icon_undeclared, 30, 30, "12", " undeclared dependencies", font, 20, doc);
 
-			page = initNewPage(doc);
+			title("Global Team", font, 35, doc);
 
-			title("Global Team", font, 35, page, doc);
-
-			attribute(icon_dev_count, 30, 30, "12", " developers commit on project", font, 20, page, doc);
-			attribute(icon_dev_best, 30, 30, "gujou", " is the top code line producer", font, 20, page, doc, "26.4");
-			attribute(icon_dev_issues, 30, 30, "toto", " has created the most issues by line", font, 20, page, doc,
+			attribute(icon_dev_count, 30, 30, "12", " developers commit on project", font, 20, doc);
+			attribute(icon_dev_best, 30, 30, "gujou", " is the top code line producer", font, 20, doc, "26.4");
+			attribute(icon_dev_issues, 30, 30, "toto", " has created the most issues by line", font, 20, doc,
 					"12.3");
 
-			title("Global vulnerabilities", font, 35, page, doc);
+			title("Global vulnerabilities", font, 35, doc);
 
-			attribute(icon_vulnerability_low, 30, 30, "46", " low dependency vulnerabilities", font, 20, page, doc);
-			attribute(icon_vulnerability_medium, 30, 30, "125", " medium dependency vulnerabilities", font, 20, page,
+			attribute(icon_vulnerability_low, 30, 30, "46", " low dependency vulnerabilities", font, 20, doc);
+			attribute(icon_vulnerability_medium, 30, 30, "125", " medium dependency vulnerabilities", font, 20,
 					doc);
-			attribute(icon_vulnerability_high, 30, 30, "3", " high dependency vulnerabilities", font, 20, page, doc);
+			attribute(icon_vulnerability_high, 30, 30, "3", " high dependency vulnerabilities", font, 20, doc);
+			
+			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+			
+			title(String.valueOf(positionHeight), font, 35, doc);
+			title(String.valueOf(positionHeight), font, 35, doc);
+			title(String.valueOf(positionHeight), font, 35, doc);
+			title(String.valueOf(positionHeight), font, 35, doc);
+			title(String.valueOf(positionHeight), font, 35, doc);
+			title(String.valueOf(positionHeight), font, 35, doc);
+			title(String.valueOf(positionHeight), font, 35, doc);
+			title(String.valueOf(positionHeight), font, 35, doc);
+			title(String.valueOf(positionHeight), font, 35, doc);
+			title(String.valueOf(positionHeight), font, 35, doc);
+			title(String.valueOf(positionHeight), font, 35, doc);
+			title(String.valueOf(positionHeight), font, 35, doc);
+			title(String.valueOf(positionHeight), font, 35, doc);
+			title(String.valueOf(positionHeight), font, 35, doc);
+			title(String.valueOf(positionHeight), font, 35, doc);
+			title(String.valueOf(positionHeight), font, 35, doc);
+			title(String.valueOf(positionHeight), font, 35, doc);
+			title(String.valueOf(positionHeight), font, 35, doc);
+			title(String.valueOf(positionHeight), font, 35, doc);
+			title(String.valueOf(positionHeight), font, 35, doc);
+			title(String.valueOf(positionHeight), font, 35, doc);
+			title(String.valueOf(positionHeight), font, 35, doc);
+			title(String.valueOf(positionHeight), font, 35, doc);
+			title(String.valueOf(positionHeight), font, 35, doc);
+			title(String.valueOf(positionHeight), font, 35, doc);
+			title(String.valueOf(positionHeight), font, 35, doc);
+			title(String.valueOf(positionHeight), font, 35, doc);
+			title(String.valueOf(positionHeight), font, 35, doc);
+			
+			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc,String.valueOf(page.getMediaBox().getHeight()));
+			
 
 			// add XMP metadata
 			XMPMetadata xmp = XMPMetadata.createXMPMetadata();
@@ -302,8 +433,12 @@ public final class PdfApplicationGenerator {
 		return file;
 	}
 
-	private static void title(String text, PDFont font, int fontSize, PDPage page, PDDocument doc) throws IOException {
+	private static void title(String text, PDFont font, int fontSize, PDDocument doc) throws IOException {
 
+		if (positionHeight + (page.getMediaBox().getHeight() / 5) >= page.getMediaBox().getHeight()) {
+			initNewPage(doc);
+		}
+		
 		positionHeight += (titleSpaceHeight * 2);
 
 		PDPageContentStream stream = new PDPageContentStream(doc, page, AppendMode.APPEND, false);
@@ -387,9 +522,7 @@ public final class PdfApplicationGenerator {
 	}
 
 	private static void attribute(PDImageXObject logo, int logoHeight, int logoWidth, String data, String label,
-			PDFont font, int fontSize, PDPage page, PDDocument doc, String percent) throws IOException {
-
-		PDPageContentStream stream = new PDPageContentStream(doc, page, AppendMode.APPEND, false);
+			PDFont font, int fontSize, PDDocument doc, String percent) throws IOException {
 
 		int dataFontSize = (int) (fontSize * 1.5f);
 		int labelFontSize = fontSize;
@@ -401,42 +534,54 @@ public final class PdfApplicationGenerator {
 		float textYCoordinate = page.getMediaBox().getHeight() - positionHeight - (logoHeight / 2) - (textHeight / 2);
 		float dataXCoordinate = logoMarginWidth + logoHeight + spaceWidth;
 
-		stream.drawImage(logo, logoMarginWidth, logoYCoordinate, logoWidth, logoHeight);
-		stream.beginText();
-		stream.setFont(font, dataFontSize);
-		stream.setNonStrokingColor(DARK_RED_COLOR);
-		stream.newLineAtOffset(dataXCoordinate, textYCoordinate);
-		stream.showText(data);
-		stream.setNonStrokingColor(Color.BLACK);
-		stream.setFont(font, labelFontSize);
-		stream.showText(label);
-
-		if (percent != null) {
-			stream.newLineAtOffset(textWidth, 4);
-			stream.setFont(PDType1Font.COURIER_BOLD, labelFontSize - 6);
-			stream.showText("(");
-			stream.setNonStrokingColor(DARK_RED_COLOR);
-			stream.showText(percent);
-			stream.showText("%");
-			stream.setNonStrokingColor(Color.BLACK);
-			stream.showText(")");
-		}
-
-		stream.endText();
-		stream.close();
-
 		positionHeight += spaceHeight + ((logoHeight < textHeight) ? textHeight : logoHeight);
+
+		if (positionHeight >= page.getMediaBox().getHeight()) {
+			initNewPage(doc);
+			attribute(logo, logoHeight, logoWidth, data, label, font, labelFontSize, doc, percent);
+		}
+		
+		else {
+
+
+			PDPageContentStream stream = new PDPageContentStream(doc, page, AppendMode.APPEND, false);
+			try{
+			stream.drawImage(logo, logoMarginWidth, logoYCoordinate, logoWidth, logoHeight);
+			stream.beginText();
+			stream.setFont(font, dataFontSize);
+			stream.setNonStrokingColor(DARK_RED_COLOR);
+			stream.newLineAtOffset(dataXCoordinate, textYCoordinate);
+			stream.showText(data);
+			stream.setNonStrokingColor(Color.BLACK);
+			stream.setFont(font, labelFontSize);
+			stream.showText(label);
+
+			if (percent != null) {
+				stream.newLineAtOffset(textWidth, 4);
+				stream.setFont(PDType1Font.COURIER_BOLD, labelFontSize - 6);
+				stream.showText("(");
+				stream.setNonStrokingColor(DARK_RED_COLOR);
+				stream.showText(percent);
+				stream.showText("%");
+				stream.setNonStrokingColor(Color.BLACK);
+				stream.showText(")");
+			}
+			} finally{
+			stream.endText();
+			stream.close();
+			}
+
+		}
 	}
 
 	private static void attribute(PDImageXObject logo, int logoHeight, int logoWidth, String data, String label,
-			PDFont font, int fontSize, PDPage page, PDDocument doc) throws IOException {
-		attribute(logo, logoHeight, logoWidth, data, label, font, fontSize, page, doc, null);
+			PDFont font, int fontSize, PDDocument doc) throws IOException {
+		attribute(logo, logoHeight, logoWidth, data, label, font, fontSize, doc, null);
 	}
 
-	private static PDPage initNewPage(PDDocument doc) {
+	private static void initNewPage(PDDocument doc) {
 		positionHeight = DEFAULT_marginHeight;
-		PDPage page = new PDPage();
+		page = new PDPage();
 		doc.addPage(page);
-		return page;
 	}
 }
