@@ -279,101 +279,102 @@ public final class PdfApplicationGenerator {
 			//Branch coverage hits	branch_coverage_hits_data	List of covered branches.
 			
 
-			title("Global libraries", font, 35, doc);
+			// TODO Add with plugin mojo!
+//			title("Global libraries", font, 35, doc);
+//
+//			attribute(icon_declared, 30, 30, "56", " declared dependencies", font, 20, doc);
+//			attribute(icon_unused, 30, 30, "5", " unused dependencies", font, 20, doc);
+//			attribute(icon_undeclared, 30, 30, "12", " undeclared dependencies", font, 20, doc);
 
-			attribute(icon_declared, 30, 30, "56", " declared dependencies", font, 20, doc);
-			attribute(icon_unused, 30, 30, "5", " unused dependencies", font, 20, doc);
-			attribute(icon_undeclared, 30, 30, "12", " undeclared dependencies", font, 20, doc);
+			// TODO code a plugin mojo!
+//			title("Global Team", font, 35, doc);
+//
+//			attribute(icon_dev_count, 30, 30, "12", " developers commit on project", font, 20, doc);
+//			attribute(icon_dev_best, 30, 30, "gujou", " is the top code line producer", font, 20, doc, "26.4");
+//			attribute(icon_dev_issues, 30, 30, "toto", " has created the most issues by line", font, 20, doc, "12.3");
 
-			title("Global Team", font, 35, doc);
-
-			attribute(icon_dev_count, 30, 30, "12", " developers commit on project", font, 20, doc);
-			attribute(icon_dev_best, 30, 30, "gujou", " is the top code line producer", font, 20, doc, "26.4");
-			attribute(icon_dev_issues, 30, 30, "toto", " has created the most issues by line", font, 20, doc,
-					"12.3");
-
-			title("Global vulnerabilities", font, 35, doc);
-
-			attribute(icon_vulnerability_low, 30, 30, "46", " low dependency vulnerabilities", font, 20, doc);
-			attribute(icon_vulnerability_medium, 30, 30, "125", " medium dependency vulnerabilities", font, 20,
-					doc);
-			attribute(icon_vulnerability_high, 30, 30, "3", " high dependency vulnerabilities", font, 20, doc);
+			// TODO cd plugin OWASP.
+//			title("Global vulnerabilities", font, 35, doc);
+//
+//			attribute(icon_vulnerability_low, 30, 30, "46", " low dependency vulnerabilities", font, 20, doc);
+//			attribute(icon_vulnerability_medium, 30, 30, "125", " medium dependency vulnerabilities", font, 20, doc);
+//			attribute(icon_vulnerability_high, 30, 30, "3", " high dependency vulnerabilities", font, 20, doc);
 			
-			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
-			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
-			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
-			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
-			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
-			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
-			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
-			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
-			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
-			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
-			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
-			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
-			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
-			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
-			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
-			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
-			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
-			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
-			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
-			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
-			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
-			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
-			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
-			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
-			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
-			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
-			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
-			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
-			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
-			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
-			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
-			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
-			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
-			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
-			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
-			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
-			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
-			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
-			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
-			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
-			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
-			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
-			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
-			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
-			
-			title(String.valueOf(positionHeight), font, 35, doc);
-			title(String.valueOf(positionHeight), font, 35, doc);
-			title(String.valueOf(positionHeight), font, 35, doc);
-			title(String.valueOf(positionHeight), font, 35, doc);
-			title(String.valueOf(positionHeight), font, 35, doc);
-			title(String.valueOf(positionHeight), font, 35, doc);
-			title(String.valueOf(positionHeight), font, 35, doc);
-			title(String.valueOf(positionHeight), font, 35, doc);
-			title(String.valueOf(positionHeight), font, 35, doc);
-			title(String.valueOf(positionHeight), font, 35, doc);
-			title(String.valueOf(positionHeight), font, 35, doc);
-			title(String.valueOf(positionHeight), font, 35, doc);
-			title(String.valueOf(positionHeight), font, 35, doc);
-			title(String.valueOf(positionHeight), font, 35, doc);
-			title(String.valueOf(positionHeight), font, 35, doc);
-			title(String.valueOf(positionHeight), font, 35, doc);
-			title(String.valueOf(positionHeight), font, 35, doc);
-			title(String.valueOf(positionHeight), font, 35, doc);
-			title(String.valueOf(positionHeight), font, 35, doc);
-			title(String.valueOf(positionHeight), font, 35, doc);
-			title(String.valueOf(positionHeight), font, 35, doc);
-			title(String.valueOf(positionHeight), font, 35, doc);
-			title(String.valueOf(positionHeight), font, 35, doc);
-			title(String.valueOf(positionHeight), font, 35, doc);
-			title(String.valueOf(positionHeight), font, 35, doc);
-			title(String.valueOf(positionHeight), font, 35, doc);
-			title(String.valueOf(positionHeight), font, 35, doc);
-			title(String.valueOf(positionHeight), font, 35, doc);
-			
-			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc,String.valueOf(page.getMediaBox().getHeight()));
+//			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+//			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+//			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+//			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+//			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+//			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+//			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+//			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+//			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+//			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+//			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+//			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+//			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+//			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+//			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+//			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+//			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+//			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+//			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+//			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+//			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+//			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+//			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+//			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+//			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+//			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+//			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+//			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+//			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+//			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+//			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+//			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+//			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+//			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+//			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+//			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+//			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+//			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+//			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+//			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+//			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+//			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+//			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+//			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc);
+//			
+//			title(String.valueOf(positionHeight), font, 35, doc);
+//			title(String.valueOf(positionHeight), font, 35, doc);
+//			title(String.valueOf(positionHeight), font, 35, doc);
+//			title(String.valueOf(positionHeight), font, 35, doc);
+//			title(String.valueOf(positionHeight), font, 35, doc);
+//			title(String.valueOf(positionHeight), font, 35, doc);
+//			title(String.valueOf(positionHeight), font, 35, doc);
+//			title(String.valueOf(positionHeight), font, 35, doc);
+//			title(String.valueOf(positionHeight), font, 35, doc);
+//			title(String.valueOf(positionHeight), font, 35, doc);
+//			title(String.valueOf(positionHeight), font, 35, doc);
+//			title(String.valueOf(positionHeight), font, 35, doc);
+//			title(String.valueOf(positionHeight), font, 35, doc);
+//			title(String.valueOf(positionHeight), font, 35, doc);
+//			title(String.valueOf(positionHeight), font, 35, doc);
+//			title(String.valueOf(positionHeight), font, 35, doc);
+//			title(String.valueOf(positionHeight), font, 35, doc);
+//			title(String.valueOf(positionHeight), font, 35, doc);
+//			title(String.valueOf(positionHeight), font, 35, doc);
+//			title(String.valueOf(positionHeight), font, 35, doc);
+//			title(String.valueOf(positionHeight), font, 35, doc);
+//			title(String.valueOf(positionHeight), font, 35, doc);
+//			title(String.valueOf(positionHeight), font, 35, doc);
+//			title(String.valueOf(positionHeight), font, 35, doc);
+//			title(String.valueOf(positionHeight), font, 35, doc);
+//			title(String.valueOf(positionHeight), font, 35, doc);
+//			title(String.valueOf(positionHeight), font, 35, doc);
+//			title(String.valueOf(positionHeight), font, 35, doc);
+//			
+//			attribute(icon_vulnerability_high, 30, 30, String.valueOf(positionHeight), " TEST PAGE", font, 20, doc,String.valueOf(page.getMediaBox().getHeight()));
 			
 
 			// add XMP metadata

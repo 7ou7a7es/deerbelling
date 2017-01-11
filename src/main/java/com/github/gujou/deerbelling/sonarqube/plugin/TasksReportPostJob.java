@@ -20,6 +20,7 @@
 package com.github.gujou.deerbelling.sonarqube.plugin;
 
 import java.io.File;
+import java.util.HashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,8 +31,9 @@ import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.config.Settings;
 import org.sonar.api.resources.Project;
 
+import com.github.gujou.deerbelling.sonarqube.model.metric.Measure;
 import com.github.gujou.deerbelling.sonarqube.service.CsvTasksGenerator;
-import com.github.gujou.deerbelling.sonarqube.service.PdfApplicationGenerator;
+import com.github.gujou.deerbelling.sonarqube.service.PdfApplicationGenerator2;
 import com.github.gujou.deerbelling.sonarqube.service.XlsTasksGenerator;
 import com.github.gujou.deerbelling.sonarqube.tools.HttpFileUploader;
 
@@ -93,8 +95,11 @@ public class TasksReportPostJob implements PostJob, CheckProject {
 			System.out.println("Error : csv file not generated.");
 		}
 
-		generateFile = PdfApplicationGenerator.generateFile(sonarProject, sonarFileSystem, sonarUrl, sonarLogin,
-				sonarPassword);
+//		generateFile = PdfApplicationGenerator.generateFile(sonarProject, sonarFileSystem, sonarUrl, sonarLogin,
+//				sonarPassword);
+		
+		generateFile = PdfApplicationGenerator2.generateFile(sonarProject, sonarFileSystem, sonarUrl, sonarLogin,
+				sonarPassword, new HashMap<String, Measure>());
 
 		if (generateFile != null) {
 
