@@ -110,8 +110,6 @@ public final class PdfApplicationGenerator2 {
 	public static File generateFile(Project sonarProject, FileSystem sonarFileSystem, String sonarUrl,
 			String sonarLogin, String sonarPassword, Map<String, Measure> sonarMeasures) {
 		
-		
-		// FIXME verify if sonarProject.getKey() or sonarProject.getEffectiveKey()
 		Resources sonarResources = ResourceGateway.getOpenIssues(sonarProject.getKey(), sonarUrl, sonarLogin, sonarPassword);
 		
 		// Only one resource => call with sonarProject.getKey()
@@ -128,7 +126,8 @@ public final class PdfApplicationGenerator2 {
 		String projectName = sonarProject.getName().replaceAll("[^A-Za-z0-9 ]", " ").trim().replaceAll(" +", " ");
 
 		String filePath = sonarFileSystem.workDir().getAbsolutePath() + File.separator + "application_report_"
-				+ projectName + "." + ReportsKeys.APPLICATION_REPORT_TYPE_PDF_EXTENSION;
+				+ sonarProject.getEffectiveKey().replace(':', '-') + "."
+				+ ReportsKeys.APPLICATION_REPORT_TYPE_PDF_EXTENSION;
 
 		File file = new File(filePath);
 		
