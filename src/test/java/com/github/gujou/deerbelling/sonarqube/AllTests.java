@@ -24,13 +24,11 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 import com.github.gujou.deerbelling.sonarqube.gateway.ResourceGatewayTest;
-import com.github.gujou.deerbelling.sonarqube.service.PdfApplicationGeneratorTest;
 import com.github.gujou.deerbelling.sonarqube.service.PdfApplicationGeneratorTest2;
 import com.github.gujou.deerbelling.sonarqube.service.PdfApplicationGeneratorTest3;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-    PdfApplicationGeneratorTest.class,
     PdfApplicationGeneratorTest2.class,
     PdfApplicationGeneratorTest3.class,
     ResourceGatewayTest.class})
