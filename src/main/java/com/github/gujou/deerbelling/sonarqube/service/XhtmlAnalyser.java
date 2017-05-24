@@ -20,7 +20,6 @@
 package com.github.gujou.deerbelling.sonarqube.service;
 
 import java.io.File;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

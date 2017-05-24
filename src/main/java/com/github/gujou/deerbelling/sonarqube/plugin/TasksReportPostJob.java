@@ -33,7 +33,7 @@ import org.sonar.api.resources.Project;
 
 import com.github.gujou.deerbelling.sonarqube.model.metric.Measure;
 import com.github.gujou.deerbelling.sonarqube.service.CsvTasksGenerator;
-import com.github.gujou.deerbelling.sonarqube.service.PdfApplicationGenerator2;
+import com.github.gujou.deerbelling.sonarqube.service.PdfApplicationGenerator;
 import com.github.gujou.deerbelling.sonarqube.service.XlsTasksGenerator;
 import com.github.gujou.deerbelling.sonarqube.tools.HttpFileUploader;
 
@@ -98,7 +98,7 @@ public class TasksReportPostJob implements PostJob, CheckProject {
 //		generateFile = PdfApplicationGenerator.generateFile(sonarProject, sonarFileSystem, sonarUrl, sonarLogin,
 //				sonarPassword);
 		
-		generateFile = PdfApplicationGenerator2.generateFile(sonarProject, sonarFileSystem, sonarUrl, sonarLogin,
+		generateFile = PdfApplicationGenerator.generateFile(sonarProject, sonarFileSystem, sonarUrl, sonarLogin,
 				sonarPassword, new HashMap<String, Measure>());
 
 		if (generateFile != null) {

@@ -59,7 +59,7 @@ public class PdfApplicationGeneratorTest3 {
 		sonarMeasures.putAll(XhtmlAnalyser.analyse(srcFolder));
 		sonarMeasures.putAll(MulesoftAnalyser.analyse(srcFolder));
 				
-		PdfApplicationGenerator2.generateFile(sonarProject, sonarFileSystem, "http://localhost:9000", "", "", sonarMeasures);
+		PdfApplicationGenerator.generateFile(sonarProject, sonarFileSystem, "http://localhost:9000", "", "", sonarMeasures);
 		
 		/****************************************************************************************************************************/
 		/* **************************************************************************************************************************/
@@ -85,7 +85,7 @@ public class PdfApplicationGeneratorTest3 {
 		sonarMeasures.putAll(XhtmlAnalyser.analyse(srcFolder));
 		sonarMeasures.putAll(MulesoftAnalyser.analyse(srcFolder));
 				
-		PdfApplicationGenerator2.generateFile(sonarProject, sonarFileSystem, "http://localhost:9000", "", "", sonarMeasures);
+		PdfApplicationGenerator.generateFile(sonarProject, sonarFileSystem, "http://localhost:9000", "", "", sonarMeasures);
 		
 		/****************************************************************************************************************************/
 		/* **************************************************************************************************************************/
@@ -111,7 +111,7 @@ public class PdfApplicationGeneratorTest3 {
 		sonarMeasures.putAll(XhtmlAnalyser.analyse(srcFolder));
 		sonarMeasures.putAll(MulesoftAnalyser.analyse(srcFolder));
 				
-		PdfApplicationGenerator2.generateFile(sonarProject, sonarFileSystem, "http://localhost:9000", "", "", sonarMeasures);
+		PdfApplicationGenerator.generateFile(sonarProject, sonarFileSystem, "http://localhost:9000", "", "", sonarMeasures);
 		
 		/****************************************************************************************************************************/
 		/* **************************************************************************************************************************/
@@ -137,7 +137,7 @@ public class PdfApplicationGeneratorTest3 {
 		sonarMeasures.putAll(XhtmlAnalyser.analyse(srcFolder));
 		sonarMeasures.putAll(MulesoftAnalyser.analyse(srcFolder));
 				
-		PdfApplicationGenerator2.generateFile(sonarProject, sonarFileSystem, "http://localhost:9000", "", "", sonarMeasures);
+		PdfApplicationGenerator.generateFile(sonarProject, sonarFileSystem, "http://localhost:9000", "", "", sonarMeasures);
 		
 		/****************************************************************************************************************************/
 		/* **************************************************************************************************************************/
@@ -163,7 +163,7 @@ public class PdfApplicationGeneratorTest3 {
 		sonarMeasures.putAll(XhtmlAnalyser.analyse(srcFolder));
 		sonarMeasures.putAll(MulesoftAnalyser.analyse(srcFolder));
 				
-		PdfApplicationGenerator2.generateFile(sonarProject, sonarFileSystem, "http://localhost:9000", "", "", sonarMeasures);
+		PdfApplicationGenerator.generateFile(sonarProject, sonarFileSystem, "http://localhost:9000", "", "", sonarMeasures);
 		
 		/****************************************************************************************************************************/
 		/* **************************************************************************************************************************/
@@ -189,7 +189,7 @@ public class PdfApplicationGeneratorTest3 {
 		sonarMeasures.putAll(XhtmlAnalyser.analyse(srcFolder));
 		sonarMeasures.putAll(MulesoftAnalyser.analyse(srcFolder));
 				
-		PdfApplicationGenerator2.generateFile(sonarProject, sonarFileSystem, "http://localhost:9000", "", "", sonarMeasures);
+		PdfApplicationGenerator.generateFile(sonarProject, sonarFileSystem, "http://localhost:9000", "", "", sonarMeasures);
 		
 		/****************************************************************************************************************************/
 		/* **************************************************************************************************************************/
@@ -215,7 +215,7 @@ public class PdfApplicationGeneratorTest3 {
 		sonarMeasures.putAll(XhtmlAnalyser.analyse(srcFolder));
 		sonarMeasures.putAll(MulesoftAnalyser.analyse(srcFolder));
 				
-		PdfApplicationGenerator2.generateFile(sonarProject, sonarFileSystem, "http://localhost:9000", "", "", sonarMeasures);
+		PdfApplicationGenerator.generateFile(sonarProject, sonarFileSystem, "http://localhost:9000", "", "", sonarMeasures);
 		
 		/****************************************************************************************************************************/
 		/* **************************************************************************************************************************/
@@ -241,7 +241,7 @@ public class PdfApplicationGeneratorTest3 {
 		sonarMeasures.putAll(XhtmlAnalyser.analyse(srcFolder));
 		sonarMeasures.putAll(MulesoftAnalyser.analyse(srcFolder));
 				
-		PdfApplicationGenerator2.generateFile(sonarProject, sonarFileSystem, "http://localhost:9000", "", "", sonarMeasures);
+		PdfApplicationGenerator.generateFile(sonarProject, sonarFileSystem, "http://localhost:9000", "", "", sonarMeasures);
 		
 		/****************************************************************************************************************************/
 		/* **************************************************************************************************************************/
@@ -267,7 +267,7 @@ public class PdfApplicationGeneratorTest3 {
 		sonarMeasures.putAll(XhtmlAnalyser.analyse(srcFolder));
 		sonarMeasures.putAll(MulesoftAnalyser.analyse(srcFolder));
 				
-		PdfApplicationGenerator2.generateFile(sonarProject, sonarFileSystem, "http://localhost:9000", "", "", sonarMeasures);
+		PdfApplicationGenerator.generateFile(sonarProject, sonarFileSystem, "http://localhost:9000", "", "", sonarMeasures);
 		
 		/****************************************************************************************************************************/
 		/* **************************************************************************************************************************/
@@ -293,7 +293,7 @@ public class PdfApplicationGeneratorTest3 {
 		sonarMeasures.putAll(XhtmlAnalyser.analyse(srcFolder));
 		sonarMeasures.putAll(MulesoftAnalyser.analyse(srcFolder));
 				
-		PdfApplicationGenerator2.generateFile(sonarProject, sonarFileSystem, "http://localhost:9000", "", "", sonarMeasures);
+		PdfApplicationGenerator.generateFile(sonarProject, sonarFileSystem, "http://localhost:9000", "", "", sonarMeasures);
 		
 	}
 

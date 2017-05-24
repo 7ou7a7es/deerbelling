@@ -54,10 +54,10 @@ public class PdfApplicationGeneratorTest2 {
 		sonarMeasures.put("medium_vuln_owasp", new Measure("medium_vuln_owasp", "7"));
 		sonarMeasures.put("low_vuln_owasp", new Measure("low_vuln_owasp", "0"));
 		
-		sonarMeasures.putAll(XhtmlAnalyser.analyse(srcFolder));
-		sonarMeasures.putAll(MulesoftAnalyser.analyse(srcFolder));
+		// sonarMeasures.putAll(XhtmlAnalyser.analyse(srcFolder));
+		// sonarMeasures.putAll(MulesoftAnalyser.analyse(srcFolder));
 				
-		PdfApplicationGenerator2.generateFile(sonarProject, sonarFileSystem, "http://localhost:9000", "", "", sonarMeasures);
+		PdfApplicationGenerator.generateFile(sonarProject, sonarFileSystem, "http://localhost:9000", "", "", sonarMeasures);
 	}
 
 	
