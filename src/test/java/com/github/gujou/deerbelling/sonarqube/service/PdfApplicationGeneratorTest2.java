@@ -20,6 +20,9 @@
 package com.github.gujou.deerbelling.sonarqube.service;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,9 +35,11 @@ import com.github.gujou.deerbelling.sonarqube.model.metric.Measure;
 public class PdfApplicationGeneratorTest2 {
 	
 	@Test
-	public void testGenerateFile(){
+	public void testGenerateFile() throws IOException{
 		
-		File baseDir = new File("/tmp/tmp");
+		File baseDir = Files.createTempDirectory(Paths.get(System.getProperty("java.io.tmpdir")), "tmp").toFile();
+		
+		baseDir.deleteOnExit();
 		
 		Project sonarProject = new Project("pouette.pouette");
 		
